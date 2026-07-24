@@ -1,6 +1,6 @@
 # Calculate Adapter Admin UI
 
-This directory contains the admin UI files for the calculate adapter.
+This directory contains the admin UI files for the calculation adapter.
 
 ## Files
 
