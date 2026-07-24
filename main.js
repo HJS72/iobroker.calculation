@@ -3,61 +3,62 @@
 const utils = require('@iobroker/adapter-core');
 const CalculationEngine = require('./lib/CalculationEngine');
 
-class Calculation extends utils.Adapter {
+class CalculateAdapter extends utils.Adapter {
     constructor(options) {
         super({
             ...options,
-            name: 'calculation',
+            name: 'calculate',
         });
+        this.engine = new CalculationEngine();
         this.on('ready', this.onReady.bind(this));
+        this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
-        
-        this.calculationEngine = new CalculationEngine(this);
     }
 
+    /**
+     * Is called when adapter received configuration from admin
+     */
     async onReady() {
-        try {
-            // Initialisiere die Berechnungs-Engine
-            await this.calculationEngine.init();
-            
-            this.log.info('Berechnungen-Adapter gestartet');
-        } catch (error) {
-            this.log.error(`Fehler beim Starten des Adapters: ${error.message}`);
+        // Initialize your adapter here
+        this.log.info('Calculate adapter started');
+        
+        // Set connection state
+        await this.setState('info.connection', { val: true, ack: true });
+
+        // Example of how to read states and perform calculations
+        const state = await this.getStateAsync('testState');
+        if (state && state.val) {
+            // Perform calculation here
+            const result = this.engine.performSimpleOperation(10, 5, '+');
+            this.log.info(`Calculation result: ${result}`);
         }
     }
 
-    async onUnload(callback) {
+    /**
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     */
+    onUnload(callback) {
         try {
-            // Speichere alle aktuellen Werte
-            await this.calculationEngine.saveState();
-            
-            this.log.info('Berechnungen-Adapter gestoppt');
+            this.log.info('Cleaned everything up...');
             callback();
-        } catch (error) {
-            this.log.error(`Fehler beim Stoppen des Adapters: ${error.message}`);
+        } catch (e) {
             callback();
         }
     }
 
-    // Methode zum Erstellen einer neuen Berechnung
-    async createCalculation(calculationData) {
-        return await this.calculationEngine.createCalculation(calculationData);
-    }
-
-    // Methode zum Löschen einer Berechnung
-    async deleteCalculation(id) {
-        return await this.calculationEngine.deleteCalculation(id);
-    }
-
-    // Methode zum Aktualisieren einer Berechnung
-    async updateCalculation(id, calculationData) {
-        return await this.calculationEngine.updateCalculation(id, calculationData);
+    /**
+     * Is called if a subscribed state changes
+     */
+    onStateChange(id, state) {
+        if (state && !state.ack) {
+            // Handle state changes here
+            this.log.debug(`State ${id} changed: ${state.val} (ack = ${state.ack})`);
+        }
     }
 }
 
-// Starte den Adapter
 if (module.parent) {
-    module.exports = (options) => new Calculation(options);
+    module.exports = CalculateAdapter;
 } else {
-    new Calculation();
+new CalculateAdapter();
 }
