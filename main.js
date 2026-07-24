@@ -3,11 +3,11 @@
 const utils = require('@iobroker/adapter-core');
 const CalculationEngine = require('./lib/CalculationEngine');
 
-class CalculateAdapter extends utils.Adapter {
+class CalculationAdapter extends utils.Adapter {
     constructor(options) {
         super({
             ...options,
-            name: 'calculate',
+            name: 'calculation',
         });
         this.engine = new CalculationEngine();
         this.on('ready', this.onReady.bind(this));
@@ -18,20 +18,32 @@ class CalculateAdapter extends utils.Adapter {
     /**
      * Is called when adapter received configuration from admin
      */
-    async onReady() {
+    onReady() {
+        this.setState('info.connection', true, true);
         // Initialize your adapter here
-        this.log.info('Calculate adapter started');
+        this.log.info('Adapter calculation is ready');
         
-        // Set connection state
-        await this.setState('info.connection', { val: true, ack: true });
+        // Start the main processing loop
+        this.main();
+    }
 
-        // Example of how to read states and perform calculations
-        const state = await this.getStateAsync('testState');
-        if (state && state.val) {
-            // Perform calculation here
-            const result = this.engine.performSimpleOperation(10, 5, '+');
-            this.log.info(`Calculation result: ${result}`);
-        }
+    /**
+     * Main processing function
+     */
+    main() {
+        // This would be where we read configuration from admin
+        // and process calculations
+        this.log.debug('Main processing started');
+    }
+
+    /**
+     * Is called if a subscribed state changes
+     */
+    onStateChange(id, state) {
+        if (!state || state.ack) return; // Only process non-ack states
+        
+        // Your calculation logic here
+        this.log.info(`State changed: ${id} = ${state.val}`);
     }
 
     /**
@@ -39,26 +51,19 @@ class CalculateAdapter extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            this.log.info('Cleaned everything up...');
+            this.log.info('cleaned everything up...');
             callback();
         } catch (e) {
             callback();
         }
     }
-
-    /**
-     * Is called if a subscribed state changes
-     */
-    onStateChange(id, state) {
-        if (state && !state.ack) {
-            // Handle state changes here
-            this.log.debug(`State ${id} changed: ${state.val} (ack = ${state.ack})`);
-        }
-    }
 }
 
+// @ts-ignore
 if (module.parent) {
-    module.exports = CalculateAdapter;
+    // Export the constructor from the module
+    module.exports = CalculationAdapter;
 } else {
-new CalculateAdapter();
+    // Start the adapter and return an instance of it
+    new CalculationAdapter();
 }
