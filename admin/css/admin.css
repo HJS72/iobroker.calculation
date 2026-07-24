@@ -1,0 +1,15 @@
+/* CSS for the Calculate adapter admin UI */
+.adapter-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.adapter-container h1 {
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+#config-content {
+    margin-top: 20px;
+}
