@@ -1,0 +1,25 @@
+{
+    "common": {
+        "name": "calculation",
+        "version": "1.0.0",
+        "title": "Berechnungen Adapter",
+        "desc": "Erlaubt das Erstellen und Ausführen von Berechnungen mit Datenpunkten",
+        "keywords": ["ioBroker", "calculation", "data points"],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "calculation.png",
+        "admin": {
+            "config": "admin/config.json"
+        },
+        "type": "adapter",
+        "authors": [
+            "Dein Name <deine.email@example.com>"
+        ],
+        "enabled": true,
+        "installedFrom": "",
+        "readme": "README.md",
+        "loglevel": "info"
+    },
+    "native": {}
+}

@@ -1,0 +1,32 @@
+{
+    "name": "calculations",
+    "title": "Calculations Adapter",
+    "version": "1.0.0",
+    "icon": "calculator.png",
+    "type": "visualization",
+    "language": "en",
+    "description": {
+        "en": "Adapter for creating custom calculations based on ioBroker datapoints",
+        "de": "Adapter zum Erstellen von benutzerdefinierten Berechnungen basierend auf ioBroker-Datapoints",
+        "ru": "Адаптер для создания пользовательских вычислений на основе ioBroker datapoints"
+    },
+    "keywords": ["calculation", "math", "datapoint", "ioBroker"],
+    "license": "MIT",
+    "homepage": "https://github.com/yourname/calculations-adapter",
+    "bugs": {
+        "url": "https://github.com/yourname/calculations-adapter/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourname/calculations-adapter.git"
+    },
+    "main": "index.html",
+    "admin": {
+        "width": 800,
+        "height": 600
+    },
+    "dependencies": {
+        "jquery": "^3.6.0",
+        "bootstrap": "^5.0.2"
+    }
+}

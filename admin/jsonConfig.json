@@ -1,0 +1,62 @@
+{
+    "type": "tabs",
+    "items": {
+        "main": {
+            "type": "panel",
+            "label": "Main Configuration",
+            "items": {
+                "calculations": {
+                    "type": "table",
+                    "label": "Calculations",
+                    "items": {
+                        "name": {
+                            "type": "text",
+                            "label": "Name"
+                        },
+                        "type": {
+                            "type": "select",
+                            "label": "Type",
+                            "options": [
+                                {"value": "simple", "label": "Simple"},
+                                {"value": "average", "label": "Average"},
+                                {"value": "sum", "label": "Sum"},
+                                {"value": "product", "label": "Product"},
+                                {"value": "energy", "label": "Energy"}
+                            ]
+                        },
+                        "operation": {
+                            "type": "select",
+                            "label": "Operation",
+                            "options": [
+                                {"value": "add", "label": "Add"},
+                                {"value": "subtract", "label": "Subtract"},
+                                {"value": "multiply", "label": "Multiply"},
+                                {"value": "divide", "label": "Divide"}
+                            ]
+                        },
+                        "inputs": {
+                            "type": "array",
+                            "label": "Input Datapoints",
+                            "items": {
+                                "datapoint": {
+                                    "type": "text",
+                                    "label": "Datapoint"
+                                }
+                            }
+                        },
+                        "output": {
+                            "type": "object",
+                            "label": "Output",
+                            "items": {
+                                "datapoint": {
+                                    "type": "text",
+                                    "label": "Output Datapoint"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
