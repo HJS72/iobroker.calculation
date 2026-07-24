@@ -14,5 +14,13 @@
             <!-- Configuration content will be loaded here -->
         </div>
     </div>
+    <script>
+        // Ensure the main.js script is loaded properly
+        $(document).ready(function() {
+            if (typeof initConfig === 'function') {
+                initConfig();
+            }
+        });
+    </script>
 </body>
 </html>
